@@ -17,6 +17,11 @@ Route::get('/', 'ShopController@index');
 Route::get('/shop', 'ShopController@index');
 Route::get('/shop/product', 'ShopController@show');
 
+Route::post('/cart', 'CartController@store')->middleware('auth');
+Route::get('/cart', 'CartController@index')->middleware('auth');
+Route::post('/cart/delete', 'CartController@delete')->middleware('auth');
+Route::post('/cart/update', 'CartController@update')->middleware('auth');
+
 Route::get('categories', 'CategoryController@index');
 Route::post('categories', 'CategoryController@store');
 Route::post('categories/{category}', 'CategoryController@delete');

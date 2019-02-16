@@ -47,8 +47,7 @@
                     </li>
                 @else
                     <li class="nav-item">
-                        <a href="#" class="nav-link"><i class="fa fa-shopping-bag"><span
-                                        class="badge badge-pill badge-primary"></span></i> Cart</a>
+                        <a href="/cart" class="nav-link"><i class="fa fa-shopping-bag"><span class="badge badge-pill badge-success">{{auth()->user()->carts->count()?:''}}</span></i> Cart</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a href=""></a>

@@ -8,7 +8,7 @@
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-body">
-                    <table class="table table-hover table-bordered">
+                    <table class="table table-hover datatable table-bordered">
                         <thead>
                         <th>ID</th>
                         <th>NAME</th>
