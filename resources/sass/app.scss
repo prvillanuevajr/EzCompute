@@ -1,0 +1,39 @@
+// Fonts
+//@import url('https://fonts.googleapis.com/css?family=Nunito');
+// Variables
+@import 'variables';
+// Bootstrap
+@import '~bootstrap/scss/bootstrap';
+@import 'font-awesome/scss/font-awesome';
+
+.navbar-laravel {
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+  @extend .p-3
+}
+
+.nav-link {
+  color: #636b6f;
+  padding: 0 25px;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: .1rem;
+  text-decoration: none;
+  text-transform: uppercase;
+
+}
+
+div.dropdown-menu a.dropdown-item {
+  color: #636b6f;
+  padding: .1rem 25px;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: .1rem;
+  text-decoration: none;
+  text-transform: uppercase;
+
+}
+
+.card-cap1 {
+  max-height: 200px;
+}
