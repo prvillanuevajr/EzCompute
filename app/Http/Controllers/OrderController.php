@@ -27,6 +27,21 @@ class OrderController extends Controller
         $order->delivery_date = Carbon::parse($request->delivery_date);
         $order->status = 'invoiced';
         $order->save();
+        $invoice = $order->invoice()->create([
+            'total_price' => $order->total_price,
+            'user_id' => $order->user_id
+        ]);
+        foreach ($order->details as $detail){
+            $product = Product::find($detail->product_id);
+            $invoice->details()->create([
+                'product_id' => $detail->product_id,
+                'name' => $product->name,
+                'brand' => $product->brand->name,
+                'category' => $product->category->name,
+                'price' => $detail->price,
+                'quantity' => $detail->quantity,
+            ]);
+        }
         return back();
     }
 

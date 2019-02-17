@@ -8,6 +8,7 @@ class Order extends Model
 {
     protected $guarded = [];
     protected $dates = ['delivery_date'];
+
     public function user()
     {
         return $this->belongsTo(User::class);
@@ -16,5 +17,10 @@ class Order extends Model
     public function details()
     {
         return $this->hasMany(OrderDetail::class);
+    }
+
+    public function invoice()
+    {
+        return $this->hasOne(Invoice::class);
     }
 }
