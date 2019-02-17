@@ -6,12 +6,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{ config('app.name', 'Laravel') }}</title>
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    {{--<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.18/datatables.min.css"/>--}}
-    <style>
-        .navbar-nav li:hover > ul.dropdown-menu {
-            display: block;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.18/datatables.min.css"/>
 </head>
 <body>
 <div id="app">
@@ -26,9 +21,9 @@
         </main>
 </div>
 <script src="{{ asset('js/app.js') }}"></script>
-{{--<script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.18/datatables.min.js"></script>--}}
+<script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.18/datatables.min.js"></script>
 <script>
-    // $('.datatable').DataTable()
+    $('.datatable').DataTable()
 </script>
 @yield('scripts')
 </body>

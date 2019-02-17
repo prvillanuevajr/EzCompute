@@ -7,7 +7,7 @@
 @import 'font-awesome/scss/font-awesome';
 
 .navbar-laravel {
-  background-color: #fff;
+  background-color: white;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
   @extend .p-3
 }
@@ -21,6 +21,10 @@
   text-decoration: none;
   text-transform: uppercase;
 
+}
+
+.navbar-nav li:hover > ul.dropdown-menu {
+  display: block;
 }
 
 div.dropdown-menu a.dropdown-item {

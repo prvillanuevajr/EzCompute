@@ -32,7 +32,6 @@
             <form class="form-inline my-2 my-lg-0" action="/shop">
                 <input class="form-control mr-sm-2" type="search" placeholder="Search product" value="{{ app('request')->input('search') }}"
                        name="search" aria-label="Search">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
             </form>
             <!-- Right Side Of Navbar -->
             <ul class="navbar-nav ml-auto">
@@ -47,16 +46,18 @@
                     </li>
                 @else
                     <li class="nav-item">
-                        <a href="/cart" class="nav-link"><i class="fa fa-shopping-bag"><span class="badge badge-pill badge-success">{{auth()->user()->carts->count()?:''}}</span></i> Cart</a>
+                        <a href="/cart" class="nav-link"><i class="fa fa-shopping-cart fa-2x"><span class="badge badge-pill badge-success">{{auth()->user()->carts->count()?:''}}</span></i></a>
                     </li>
                     <li class="nav-item dropdown">
                         <a href=""></a>
                         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                            <i class="fa fa-user"></i> {{ Auth::user()->name }} <span class="caret"></span>
+                            <i class="fa fa-user fa-2x"></i><span class="caret"></span>
                         </a>
 
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                            <h6 class="dropdown-header">{{Auth::user()->name}}</h6>
+                            <a href="/orders" class="dropdown-item">My Orders</a>
                             <a class="dropdown-item" href="{{ route('logout') }}"
                                onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">

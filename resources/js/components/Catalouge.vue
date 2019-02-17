@@ -3,9 +3,12 @@
         <div v-if="!products.length" class="col-lg-12">
             <div class="jumbotron jumbotron-fluid">
                 <div class="container">
-                    <h1 class="display-4">No result!</h1>
-                    <p class="lead">No products found which match your selection</p>
-                    <a href="/" class="btn btn-primary">Home</a>
+                    <h1 class="display-4 d-block text-center"><i class="fa fa-frown-o fa-2x"></i></h1>
+                    <h1 class="display-4 d-block text-center font-weight-bold">Nothing found!</h1>
+                    <h4 class="d-block text-center font-weight-bold">
+                        <p class="lead font-weight-bold">Sorry, but nothing matched your search terms.</p>
+                        <p class="lead font-weight-bold">Please try again.</p>
+                    </h4>
                 </div>
             </div>
         </div>
@@ -19,20 +22,20 @@
             </ul>
         </div>
         <div class="col-lg-9 offset-lg-1">
-            <div class="row">
-                <div v-for="product in filteredProducts" class="col-lg-4 mb-4">
-                    <div class="card" style="width: 18rem;">
+            <transition-group name="fade" class="row" tag="div">
+                <div v-for="product in filteredProducts" class="col-lg-4 mb-4" v-bind:key="product.id">
+                    <div class="card border-dark" style="width: 18rem;">
                         <img class="card-cap1 card-img-top" :src="`/images/${product.image}`" alt="Card image cap">
                         <div class="card-body">
                             <strong>{{product.name}}</strong><br>
                             <strong>{{product.brand.name}}</strong>
-                            <h3><span class="badge badge-danger">₱{{product.price}}</span></h3>
+                            <h3><span class="badge badge-danger">₱{{toCurrency(product.price)}}</span></h3>
                         </div>
                         <a :href="`/shop/product?name=${product.name}&id=${product.id}`"
                            class="btn card-footer"><strong>Details</strong></a>
                     </div>
                 </div>
-            </div>
+            </transition-group>
         </div>
     </div>
 </template>
@@ -46,6 +49,11 @@
         created() {
             // this.selected_brands = this.brands
         },
+        methods: {
+            toCurrency(num) {
+                return (num).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+            }
+        },
         computed: {
             brands() {
                 return _.uniq(this.products.map(product => product.brand.name))
@@ -58,6 +66,21 @@
 </script>
 
 <style scoped>
+    .fade-move {
+        transition: transform 1s;
+    }
+    .fade-enter-active {
+        transition: opacity 1s;
+    }
+    .fade-leave-active{
+        position: absolute;
+    }
+
+    .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */
+    {
+        opacity: 0;
+    }
+
     div.sticky {
         position: -webkit-sticky !important;
         position: sticky !important;

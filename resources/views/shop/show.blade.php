@@ -24,11 +24,15 @@
                     </p>
                     <div class="d-flex">
                         <button onclick="window.history.back();" class="btn btn-outline-primary mr-4">BACK</button>
-                        <form action="/cart" method="post">
-                            @csrf
-                            <input type="hidden" name="product_id" value="{{$product->id}}">
-                            <button class="btn btn-primary">ADD TO CART <i class="fa fa-plus"></i></button>
-                        </form>
+                        @if($product->quantity)
+                            <form action="/cart" method="post">
+                                @csrf
+                                <input type="hidden" name="product_id" value="{{$product->id}}">
+                                <button class="btn btn-primary">ADD TO CART <i class="fa fa-plus"></i></button>
+                            </form>
+                        @else
+                            <button class="btn btn-danger">Out of stock</button>
+                        @endif
                     </div>
                 </div>
             </div>

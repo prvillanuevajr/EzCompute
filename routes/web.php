@@ -22,6 +22,12 @@ Route::get('/cart', 'CartController@index')->middleware('auth');
 Route::post('/cart/delete', 'CartController@delete')->middleware('auth');
 Route::post('/cart/update', 'CartController@update')->middleware('auth');
 
+Route::get('/orders','OrderController@index');
+Route::post('/orders','OrderController@store');
+Route::get('/orders/{order}','OrderController@show');
+Route::post('/orders/{order}/cancel','OrderController@cancel');
+Route::post('/orders/{order}/update','OrderController@update');
+
 Route::get('categories', 'CategoryController@index');
 Route::post('categories', 'CategoryController@store');
 Route::post('categories/{category}', 'CategoryController@delete');

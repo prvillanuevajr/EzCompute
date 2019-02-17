@@ -6,7 +6,7 @@
  */
 
 require('./bootstrap');
-
+const Swal = require('sweetalert2')
 window.Vue = require('vue');
 
 /**
