@@ -42,3 +42,7 @@ div.dropdown-menu a.dropdown-item {
 .card-cap1 {
   max-height: 200px;
 }
+
+a.btn.card-footer:hover {
+  @extend .btn-dark
+}

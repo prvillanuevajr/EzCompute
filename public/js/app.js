@@ -40693,8 +40693,9 @@ var render = function() {
                   },
                   [
                     _c("img", {
-                      staticClass: "card-cap1 card-img-top",
+                      staticClass: "card-cap1 card-img-top border-dark",
                       attrs: {
+                        height: "200",
                         src: "/images/" + product.image,
                         alt: "Card image cap"
                       }

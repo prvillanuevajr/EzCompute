@@ -25,7 +25,7 @@
             <transition-group name="fade" class="row" tag="div">
                 <div v-for="product in filteredProducts" class="col-lg-4 mb-4" v-bind:key="product.id">
                     <div class="card border-dark" style="width: 18rem;">
-                        <img class="card-cap1 card-img-top" :src="`/images/${product.image}`" alt="Card image cap">
+                        <img height="200" class="card-cap1 card-img-top border-dark" :src="`/images/${product.image}`" alt="Card image cap">
                         <div class="card-body">
                             <strong>{{product.name}}</strong><br>
                             <strong>{{product.brand.name}}</strong>
