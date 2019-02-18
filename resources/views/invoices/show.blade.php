@@ -29,7 +29,7 @@
                             <div class="text-gray-light">INVOICE TO:</div>
                             <h2 class="to">{{$invoice->user->name}}</h2>
                             <div class="address">{{$invoice->user->address}}</div>
-                            <div class="email"><a href="mailto:john@example.com">{{$invoice->user->email}}</a></div>
+                            <div class="email"><a href="mailto:{{$invoice->user->email}}">{{$invoice->user->email}}</a></div>
                         </div>
                         <div class="col invoice-details">
                             <h1 class="invoice-id">INVOICE {{$invoice->id}}</h1>

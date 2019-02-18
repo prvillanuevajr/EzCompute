@@ -21,20 +21,19 @@
                         </thead>
                         <tbody>
                         @foreach($products as $product)
-                            <tr>
+                            <tr data-content="{{$product->id}}">
                                 <td>
                                     {{--{{$product->id}}--}}
                                     <img class="img-fluid" width="32" src="{{asset('images/'.$product->image)}}" alt="">
                                 </td>
-                                <td>{{$product->name}}</td>
+                                <td class="td_editable" ondblclick="edit('name','{{$product->id}}','{{$product->name}}')">{{$product->name}}</td>
                                 <td>{{$product->brand->name}}</td>
                                 <td>{{$product->category->name}}</td>
-                                <td>{{$product->price}}</td>
-                                <td>{{$product->quantity}}</td>
+                                <td class="td_editable" ondblclick="edit('price','{{$product->id}}','{{$product->price}}')">{{string_to_currency($product->price)}}</td>
+                                <td class="td_editable" ondblclick="edit('quantity','{{$product->id}}','{{$product->quantity}}')">{{$product->quantity}}</td>
                                 <td>{{$product->updated_at->toDayDateTimeString()}}</td>
                                 <td>
                                     <div class="btn-group-sm">
-                                        <button class="btn btn-outline-primary">Edit</button>
                                         <button class="btn btn-primary" onclick="delete_product({{$product->id}})">
                                             Delete
                                         </button>
@@ -54,8 +53,44 @@
         function delete_product(id) {
             if (confirm('Are you sure?')) {
                 axios.post('/products/' + id)
-                // .then(window.location.reload())
+                .then(window.location.reload())
             }
         }
+
+        function edit(col, product_id, previous_val) {
+            Swal.fire({
+                title: `Update Product's ${col}`,
+                html:
+                `<p>Previous ${col}: ${previous_val}</p>` +
+                '<input id="col" name="col" type="text" class="swal2-input">',
+                focusConfirm: false,
+                showCancelButton: true,
+                showLoaderOnConfirm: true,
+                preConfirm: (pres) => {
+                    let val = $('#col').val().trim();
+                    if (val) {
+                        if (['price', 'quantity'].includes(col)) {
+                            if (!isNaN(val) && parseInt(val) >= 0) {
+                                axios.post(`/products/${product_id}/update`, {column: col, value: val})
+                                    .then(({data}) => {
+                                        window.location.reload(true)
+                                    })
+                                    .catch(({response}) => console.log(response))
+                            }else{
+                                Swal.close();
+                                setTimeout(function () {
+                                    Swal.fire(`Invalid input`,`Invalid input for ${col}.`,'warning')
+                                },300)
+                            }
+                        } else {
+                            axios.post(`/products/${product_id}/update`, {column: col, value: val})
+                                .then(({data}) => console.log(data))
+                                .catch(({response}) => console.log(response))
+                        }
+                    }
+                }
+            })
+        }
+
     </script>
 @endsection

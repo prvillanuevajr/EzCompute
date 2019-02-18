@@ -41,6 +41,11 @@ class ProductController extends Controller
 
     }
 
+    public function update(Request $request, Product $product)
+    {
+        $product->update([$request->column => $request->value]);
+    }
+
     public function delete(Product $product)
     {
         File::delete('images/' . $product->image);

@@ -29,4 +29,9 @@ class CategoryController extends Controller
     {
         return $category->forceDelete();
     }
+
+    public function update(Request $request, Category $category)
+    {
+        $category->update(['name' => $request->value]);
+    }
 }

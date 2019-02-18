@@ -9,7 +9,7 @@
                             <div class="carousel-item @if(!$key) active @endif">
                                 <h3 class="font-weight-bold">New Arival</h3>
                                 <div class="d-md-flex">
-                                    <img src="{{asset('images/'.$product->image)}}" alt="Los Angeles">
+                                    <img width="256" height="256" class="img-thumbnail" src="{{asset('images/'.$product->image)}}" alt="Los Angeles">
                                     <div class="d-flex flex-column">
                                         <p class="p-4">
                                             <strong>{{$product->name}}</strong>

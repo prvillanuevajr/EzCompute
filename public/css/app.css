@@ -13906,3 +13906,19 @@ div.dropdown-menu a.dropdown-item {
   max-height: 200px;
 }
 
+td.td_editable::before {
+  font-family: FontAwesome;
+  content: "\F044    ";
+  color: #999;
+}
+
+td.td_editable {
+  cursor: pointer;
+  font-weight: bold;
+}
+
+td.td_editable:hover {
+  cursor: pointer;
+  font-weight: bold;
+}
+

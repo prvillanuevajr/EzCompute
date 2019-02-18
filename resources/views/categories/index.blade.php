@@ -18,15 +18,15 @@
                         @foreach($categories as $category)
                             <tr>
                                 <td>{{$category->id}}</td>
-                                <td>{{$category->name}}</td>
+                                <td class="td_editable"
+                                    ondblclick="edit('{{$category->name}}','{{$category->id}}')">{{$category->name}}</td>
                                 <td>{!!$category->parent ? $category->parent->name: '<b>PARENT</b>'!!}</td>
                                 <td>{{$category->created_at}}</td>
                                 <td>{{$category->updated_at}}</td>
                                 <td>
-                                    <button class="btn-sm btn-primary btn">Edit</button>
                                     <button class="btn-sm btn-primary btn delbtn"
-                                            onclick="delete_category({{$category->id}})">
-                                        Del
+                                            onclick="delete_category({{$category->id}},'{{$category->name}}')">
+                                        Delete
                                     </button>
                                 </td>
                             </tr>
@@ -66,11 +66,42 @@
 @endsection
 @section('scripts')
     <script>
-        function delete_category(id) {
-            if (confirm('Are you sure?')) {
-                axios.post(`/categories/${id}`)
-                    .then(window.location.reload(true))
-            }
+        function delete_category(id,name) {
+            Swal.fire({
+                title: `Delete ${name}?`,
+                text:`Are you sure?`,
+                type: "question",
+                showCancelButton: true,
+                focusCancel: true,
+                preConfirm: () => {
+                    axios.post(`/categories/${id}`)
+                        .then(window.location.reload(true))
+                }
+            })
+        }
+
+        function edit(previous_val, id) {
+            Swal.fire({
+                title: `Update Category's name.`,
+                html:
+                `<p>Previous name: ${previous_val}</p>` +
+                '<input id="col" name="col" type="text" class="swal2-input">',
+                focusConfirm: false,
+                showCancelButton: true,
+                showLoaderOnConfirm: true,
+                preConfirm: () => {
+                    let val = $('#col').val().trim();
+                    if (val) {
+                        axios.post(`/categories/${id}/update`, {value: val})
+                            .then(e => window.location.reload(true))
+                            .catch(e => setTimeout(() => Swal.fire('Something Went Wrong!')), 500)
+                        return false
+                    }
+                    setTimeout(() => {
+                        Swal.fire('Invalid Name', 'Name provided is invalid', 'warning');
+                    }, 500)
+                }
+            })
         }
     </script>
 @endsection

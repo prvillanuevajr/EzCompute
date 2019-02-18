@@ -46,3 +46,18 @@ div.dropdown-menu a.dropdown-item {
 a.btn.card-footer:hover {
   @extend .btn-dark
 }
+
+td.td_editable::before{
+  font-family: FontAwesome;
+  content: "\f044   ";
+  color: #999;
+}
+
+td.td_editable{
+  cursor: pointer;
+  font-weight: bold;
+}
+td.td_editable:hover{
+  cursor: pointer;
+  font-weight: bold;
+}

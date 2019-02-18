@@ -30,4 +30,9 @@ class BrandController extends Controller
     {
         $brand->forceDelete();
     }
+
+    public function update(Request $request, Brand $brand)
+    {
+        $brand->update(['name' => $request->value]);
+    }
 }

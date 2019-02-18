@@ -40,15 +40,19 @@ Route::middleware('admin')->group(function () {
     Route::get('categories', 'CategoryController@index');
     Route::post('categories', 'CategoryController@store');
     Route::post('categories/{category}', 'CategoryController@delete');
+    Route::post('categories/{category}/update', 'CategoryController@update');
 
     Route::get('brands', 'BrandController@index');
     Route::post('brands', 'BrandController@store');
     Route::post('brands/{brand}', 'BrandController@delete');
+    Route::post('brands/{brand}/update', 'BrandController@update');
 
     Route::get('products', 'ProductController@index');
     Route::post('products', 'ProductController@store');
     Route::get('products/create', 'ProductController@create');
     Route::post('products/{product}', 'ProductController@delete');
+    Route::post('products/{product}/update', 'ProductController@update');
+
     Route::get('/home', 'HomeController@index')->name('home');
 
     Route::post('/orders/{order}/update', 'OrderController@update');

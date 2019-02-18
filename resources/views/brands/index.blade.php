@@ -18,14 +18,13 @@
                         @foreach($brands as $brand)
                             <tr>
                                 <td>{{$brand->id}}</td>
-                                <td>{{$brand->name}}</td>
+                                <td class="td_editable" ondblclick="edit('{{$brand->name}}','{{$brand->id}}')">{{$brand->name}}</td>
                                 <td>{{$brand->created_at}}</td>
                                 <td>{{$brand->updated_at}}</td>
                                 <td>
-                                    <button class="btn-sm btn-primary btn">Edit</button>
                                     <button class="btn-sm btn-primary btn delbtn"
-                                            onclick="delete_category({{$brand->id}})">
-                                        Del
+                                            onclick="delete_brand({{$brand->id}},'{{$brand->name}}')">
+                                        Delete
                                     </button>
                                 </td>
                             </tr>
@@ -56,11 +55,42 @@
 @endsection
 @section('scripts')
     <script>
-        function delete_category(id) {
-            if (confirm('Are you sure?')) {
-                axios.post(`/brands/${id}`)
-                    .then(window.location.reload(true))
-            }
+        function delete_brand(id,name) {
+            Swal.fire({
+                title: `Delete ${name}?`,
+                text:`Are you sure?`,
+                type: "question",
+                showCancelButton: true,
+                focusCancel: true,
+                preConfirm: () => {
+                    axios.post(`/brands/${id}`)
+                        .then(window.location.reload(true))
+                }
+            })
+        }
+
+        function edit(previous_val, id) {
+            Swal.fire({
+                title: `Update Brand's name.`,
+                html:
+                `<p>Previous name: ${previous_val}</p>` +
+                '<input id="col" name="col" type="text" class="swal2-input">',
+                focusConfirm: false,
+                showCancelButton: true,
+                showLoaderOnConfirm: true,
+                preConfirm: () => {
+                    let val = $('#col').val().trim();
+                    if (val) {
+                        axios.post(`/brands/${id}/update`,{value: val})
+                            .then(e => window.location.reload(true))
+                            .catch(e => setTimeout(() => Swal.fire('Something Went Wrong!')),500)
+                        return false
+                    }
+                    setTimeout(() => {
+                        Swal.fire('Invalid Name','Name provided is invalid','warning');
+                    },500)
+                }
+            })
         }
 
     </script>

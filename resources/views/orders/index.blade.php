@@ -22,7 +22,7 @@
                                     <tr>
                                         <td>{{$order->id}}</td>
                                         <td>{{$order->user->email}}</td>
-                                        <td>₱{{$order->total_price}}</td>
+                                        <td>{{string_to_currency($order->total_price)}}</td>
                                         <td>
                                             <span class="badge @if($order->status == 'invoiced') badge-success @else badge-warning @endif">{{$order->status}}</span>
                                         </td>
