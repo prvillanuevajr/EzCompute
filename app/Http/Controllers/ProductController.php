@@ -7,12 +7,15 @@ use App\Category;
 use App\Product;
 use Illuminate\Support\Facades\File;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
     public function index()
     {
         $products = Product::all();
+        $files = Storage::disk('public_uploads')->allFiles('product/images/');; //Get all photos in products images to delete non associated.
+        Storage::delete(collect($files)->diff($products->pluck('image'))->flatten()->toArray());
         return view('products.index', compact('products'));
     }
 

@@ -29,12 +29,12 @@
                                 <td class="td_editable" ondblclick="edit('name','{{$product->id}}','{{$product->name}}')">{{$product->name}}</td>
                                 <td>{{$product->brand->name}}</td>
                                 <td>{{$product->category->name}}</td>
-                                <td class="td_editable" ondblclick="edit('price','{{$product->id}}','{{$product->price}}')">{{string_to_currency($product->price)}}</td>
+                                <td class="td_editable" ondblclick="edit('price','{{$product->id}}','{{string_to_currency($product->price)}}')">{{string_to_currency($product->price)}}</td>
                                 <td class="td_editable" ondblclick="edit('quantity','{{$product->id}}','{{$product->quantity}}')">{{$product->quantity}}</td>
                                 <td>{{$product->updated_at->toDayDateTimeString()}}</td>
                                 <td>
                                     <div class="btn-group-sm">
-                                        <button class="btn btn-primary" onclick="delete_product({{$product->id}})">
+                                        <button class="btn btn-primary" onclick="delete_product('{{$product->id}}','{{$product->name}}')">
                                             Delete
                                         </button>
                                     </div>
@@ -50,11 +50,18 @@
 @endsection
 @section('scripts')
     <script>
-        function delete_product(id) {
-            if (confirm('Are you sure?')) {
-                axios.post('/products/' + id)
-                .then(window.location.reload())
-            }
+        function delete_product(id,name) {
+            Swal.fire({
+                title: `Delete ${name}?`,
+                text:`Are you sure?`,
+                type: "question",
+                showCancelButton: true,
+                focusCancel: true,
+                preConfirm: () => {
+                    axios.post('/products/' + id)
+                        .then(window.location.reload())
+                }
+            })
         }
 
         function edit(col, product_id, previous_val) {

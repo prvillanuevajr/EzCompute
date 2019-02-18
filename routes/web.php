@@ -33,6 +33,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/orders', 'OrderController@index');
     Route::get('/orders/{order}', 'OrderController@show');
     Route::post('/orders/{order}/cancel', 'OrderController@cancel');
+
+    Route::post('/ratings/{product}/store', 'RatingController@store');
+    Route::post('/ratings/{rating}/delete', 'RatingController@delete');
 });
 
 

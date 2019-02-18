@@ -20,7 +20,7 @@
   font-weight: 600;
   letter-spacing: .1rem;
   text-decoration: none;
-  text-transform: uppercase;
+  text-transform: capitalize;
 
 }
 
@@ -35,7 +35,7 @@ div.dropdown-menu a.dropdown-item {
   font-weight: 600;
   letter-spacing: .1rem;
   text-decoration: none;
-  text-transform: uppercase;
+  text-transform: lowercase;
 
 }
 
@@ -47,17 +47,47 @@ a.btn.card-footer:hover {
   @extend .btn-dark
 }
 
-td.td_editable::before{
+td.td_editable::before {
   font-family: FontAwesome;
   content: "\f044   ";
   color: #999;
 }
 
-td.td_editable{
+td.td_editable {
   cursor: pointer;
   font-weight: bold;
 }
-td.td_editable:hover{
+
+td.td_editable:hover {
   cursor: pointer;
   font-weight: bold;
+}
+
+.hidden_li {
+  display: none;
+}
+
+.brands_ul:hover > li.hidden_li{
+  display: block;
+}
+
+
+::-webkit-scrollbar-track
+{
+  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+  border-radius: 10px;
+  background-color: #F5F5F5;
+}
+
+::-webkit-scrollbar
+{
+  width: 8px;
+  background-color: #F5F5F5;
+}
+
+::-webkit-scrollbar-thumb
+{
+  border-radius: 10px;
+  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+  background-color: #555;
 }

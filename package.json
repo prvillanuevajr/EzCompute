@@ -24,6 +24,8 @@
         "vue-template-compiler": "^2.6.6"
     },
     "dependencies": {
-        "sweetalert2": "^8.0.7"
+        "moment": "^2.24.0",
+        "sweetalert2": "^8.0.7",
+        "vue-star-rating": "^1.6.1"
     }
 }

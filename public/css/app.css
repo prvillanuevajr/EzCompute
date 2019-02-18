@@ -13885,7 +13885,7 @@ a.text-dark:focus {
   font-weight: 600;
   letter-spacing: 0.1rem;
   text-decoration: none;
-  text-transform: uppercase;
+  text-transform: capitalize;
 }
 
 .navbar-nav li:hover > ul.dropdown-menu {
@@ -13899,7 +13899,7 @@ div.dropdown-menu a.dropdown-item {
   font-weight: 600;
   letter-spacing: 0.1rem;
   text-decoration: none;
-  text-transform: uppercase;
+  text-transform: lowercase;
 }
 
 .card-cap1 {
@@ -13920,5 +13920,30 @@ td.td_editable {
 td.td_editable:hover {
   cursor: pointer;
   font-weight: bold;
+}
+
+.hidden_li {
+  display: none;
+}
+
+.brands_ul:hover > li.hidden_li {
+  display: block;
+}
+
+::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+  background-color: #F5F5F5;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  background-color: #F5F5F5;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  background-color: #555;
 }
 

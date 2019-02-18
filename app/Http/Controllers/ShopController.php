@@ -35,6 +35,7 @@ class ShopController extends Controller
     {
         $categories = Category::all();
         $product = Product::find($request->id);
-        return view('shop.show', compact('categories', 'product'));
+        $ratings = $product->ratings()->with('user')->latest()->get();
+        return view('shop.show', compact('categories', 'product','ratings'));
     }
 }

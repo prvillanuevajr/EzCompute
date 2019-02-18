@@ -19,10 +19,12 @@ window.Swal = require('sweetalert2');
 
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
-
+import StarRating from 'vue-star-rating'
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('catalouge', require('./components/Catalouge.vue').default);
 Vue.component('cart', require('./components/Cart.vue').default);
+Vue.component('ratings', require('./components/Ratings.vue').default);
+Vue.component('star-rating', StarRating);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

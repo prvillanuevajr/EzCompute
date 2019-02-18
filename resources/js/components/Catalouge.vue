@@ -12,7 +12,7 @@
                 </div>
             </div>
         </div>
-        <div v-if="brands.length" class="col-lg-2">
+        <div v-if="brands.length" class="col-md-3 col-lg-2 mb-sm-4">
             <ul class="list-group">
                 <li class="list-group-item font-weight-bold text-center">BRANDS</li>
                 <template v-for="brand in brands">
@@ -21,9 +21,9 @@
                 </template>
             </ul>
         </div>
-        <div class="col-lg-9 offset-lg-1">
-            <transition-group name="fade" class="row" tag="div">
-                <div v-for="product in filteredProducts" class="col-lg-4 mb-4" v-bind:key="product.id">
+        <div class="col-md-9 col-lg-10">
+            <transition-group name="fade" class="d-flex flex-wrap" tag="div">
+                <div v-for="product in filteredProducts" class="mb-3 mr-md-3" v-bind:key="product.id">
                     <div class="card border-dark" style="width: 18rem;">
                         <img height="200" class="card-cap1 card-img-top border-dark" :src="`/images/${product.image}`" alt="Card image cap">
                         <div class="card-body">
@@ -67,10 +67,10 @@
 
 <style scoped>
     .fade-move {
-        transition: transform 1s;
+        transition: transform .5s;
     }
     .fade-enter-active {
-        transition: opacity 1s;
+        transition: opacity .5s;
     }
     .fade-leave-active{
         position: absolute;
