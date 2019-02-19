@@ -58719,6 +58719,8 @@ var render = function() {
                             _c("img", {
                               staticClass: "img img-rounded img-fluid",
                               attrs: {
+                                width: "64",
+                                height: "64",
                                 src: "https://image.ibb.co/jw55Ex/def_face.jpg"
                               }
                             }),

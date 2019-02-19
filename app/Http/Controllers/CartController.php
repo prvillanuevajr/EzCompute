@@ -16,8 +16,9 @@ class CartController extends Controller
 
     public function store(Request $request)
     {
+        return checkIfActive('redirect');
         $product = Product::find($request->product_id);
-        if (!$product->quantity) return response('out of stock',406);
+        if (!$product->quantity) return response('out of stock', 406);
         $noitem = auth()->user()->carts()->where('product_id', $product->id)->get()->isEmpty();
         if ($noitem) {
             Cart::create([
@@ -30,7 +31,7 @@ class CartController extends Controller
             $cartItem->quantity++;
             $cartItem->save();
         }
-        $product->quantity = $product->quantity-1;
+        $product->quantity = $product->quantity - 1;
         $product->save();
         return redirect('/cart');
     }
@@ -39,7 +40,7 @@ class CartController extends Controller
     {
         $cart = Cart::find($request->item['id']);
         $product = Product::find($cart->product_id);
-        if (!$product->quantity && $request->toAdd  == 1) return response('out of stock',406);
+        if (!$product->quantity && $request->toAdd == 1) return response('out of stock', 406);
         $cart->quantity += $request->toAdd;
         $cart->save();
         $product->quantity -= $request->toAdd;

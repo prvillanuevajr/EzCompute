@@ -22,7 +22,7 @@
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-md-2">
-                                        <img src="https://image.ibb.co/jw55Ex/def_face.jpg"
+                                        <img width="64" height="64" src="https://image.ibb.co/jw55Ex/def_face.jpg"
                                              class="img img-rounded img-fluid"/>
                                         <p class="text-secondary text-center">{{Ago(rating.created_at)}}</p>
                                     </div>

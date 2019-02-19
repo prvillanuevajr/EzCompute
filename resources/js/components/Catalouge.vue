@@ -23,7 +23,7 @@
         </div>
         <div class="col-md-9 col-lg-10">
             <transition-group name="fade" class="d-flex flex-wrap" tag="div">
-                <div v-for="product in filteredProducts" class="mb-3 mr-md-3" v-bind:key="product.id">
+                <div v-for="product in filteredProducts" class="mb-3 mr-sm-3" v-bind:key="product.id">
                     <div class="card border-dark" style="width: 18rem;">
                         <img height="200" class="card-cap1 card-img-top border-dark" :src="`/images/${product.image}`" alt="Card image cap">
                         <div class="card-body">

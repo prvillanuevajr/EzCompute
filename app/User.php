@@ -37,6 +37,8 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public $dates = ['deactivated_at'];
+
     public function carts()
     {
         return $this->hasMany(Cart::class);
@@ -52,7 +54,8 @@ class User extends Authenticatable
         return $this->hasMany(Invoice::class);
     }
 
-    public function ratings(){
+    public function ratings()
+    {
         return $this->hasMany(Rating::class);
     }
 }

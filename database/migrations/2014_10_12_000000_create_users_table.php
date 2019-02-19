@@ -23,6 +23,7 @@ class CreateUsersTable extends Migration
             $table->string('phone_number');
             $table->boolean('is_admin')->nullable();
             $table->rememberToken();
+            $table->timestamp('deactivated_at')->default(true);
             $table->timestamps();
         });
 

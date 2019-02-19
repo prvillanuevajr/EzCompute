@@ -28,6 +28,9 @@
 <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.18/datatables.min.js"></script>
 <script>
     $('.datatable').DataTable()
+    @if($errors->any())
+    Swal.fire('Ooops!','{{$errors->first()}}','error');
+    @endif
 </script>
 @yield('scripts')
 </body>

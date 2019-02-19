@@ -59,6 +59,9 @@ Route::middleware('admin')->group(function () {
     Route::get('/home', 'HomeController@index')->name('home');
 
     Route::post('/orders/{order}/update', 'OrderController@update');
+
+    Route::get('users', 'UserController@index');
+    Route::post('users/toggle_active', 'UserController@toggle_active');
 });
 
 Auth::routes();
