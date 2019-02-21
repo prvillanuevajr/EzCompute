@@ -20,6 +20,7 @@
             <ul class="navbar-nav ml-auto">
                 <a href="/orders" class="nav-item nav-link">Orders</a>
                 <a href="/users" class="nav-item nav-link">Users</a>
+                <a href="/dashboard" class="nav-item nav-link">Dashboard</a>
                 <li class="nav-item dropdown">
                     <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>Item Management<span

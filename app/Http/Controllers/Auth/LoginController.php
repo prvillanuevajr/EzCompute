@@ -37,7 +37,7 @@ class LoginController extends Controller
     {
         switch (auth()->user()->is_admin) {
             case 1:
-                return '/home';
+                return '/dashboard';
                 break;
             case 0:
                 return '/';
