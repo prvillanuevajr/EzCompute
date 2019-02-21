@@ -57,7 +57,8 @@ Route::middleware('admin')->group(function () {
     Route::post('products/{product}', 'ProductController@delete');
     Route::post('products/{product}/update', 'ProductController@update');
 
-    Route::get('/dashboard', 'HomeController@index')->name('home');
+    Route::get('/dashboard', 'HomeController@index')->name('');
+    Route::get('/home', 'HomeController@index')->name('home');
 
     Route::post('/orders/{order}/update', 'OrderController@update');
 
