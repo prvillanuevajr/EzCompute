@@ -16,6 +16,23 @@
                         </div>
                     </div>
                 </div>
+                <div class="card">
+                    <template v-if="user.email && !user.is_admin">
+                        <div class="card-body">
+                            <hr>
+                            <h3 class="font-weight-bold">Rate this product</h3>
+                            <div>
+                                <div class="form-group">
+                                    <star-rating v-model="rate" :increment=".5" :star-size="30"></star-rating>
+                                </div>
+                                <div class="form-group">
+                                    <textarea v-model="comment" class="form-control" rows="3"></textarea>
+                                </div>
+                                <button @click="submit_review" class="btn btn-primary">submit</button>
+                            </div>
+                    </div>
+                    </template>
+                </div>
                 <div class="reviews_section">
                     <transition-group name="fade" tag="div">
                         <div v-for="(rating,index) in ratings" class="card mb-3" :key="rating.id">
@@ -50,19 +67,6 @@
                         </div>
                     </transition-group>
                 </div>
-                <template v-if="user.email && !user.is_admin">
-                    <hr>
-                    <h3 class="font-weight-bold">Rate this product</h3>
-                    <div>
-                        <div class="form-group">
-                            <star-rating v-model="rate" :increment=".5" :star-size="30"></star-rating>
-                        </div>
-                        <div class="form-group">
-                            <textarea v-model="comment" class="form-control" rows="3"></textarea>
-                        </div>
-                        <button @click="submit_review" class="btn btn-primary">submit</button>
-                    </div>
-                </template>
             </div>
         </div>
     </div>
@@ -125,7 +129,8 @@
         },
         computed: {
             average_ratings() {
-                return this.ratings.map(rating => rating.rating).reduce((a, b) => a + b, 0) / this.ratings.length;
+                return parseFloat(Math.round(this.ratings.map(rating => rating.rating).reduce((a, b) => a + b, 0) / this.ratings.length * 100) / 100).toFixed(2);
+
             }
         }
     }
@@ -152,6 +157,8 @@
     .reviews_section {
         max-height: 300px;
         overflow-y: auto;
+    }
+    .reviews_section:hover {
     }
 
 </style>

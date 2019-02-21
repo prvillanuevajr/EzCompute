@@ -19,7 +19,7 @@
             <!-- Right Side Of Navbar -->
             <ul class="navbar-nav ml-auto">
                 <a href="/orders" class="nav-item nav-link">Orders</a>
-
+                <a href="/users" class="nav-item nav-link">Users</a>
                 <li class="nav-item dropdown">
                     <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>Item Management<span
@@ -32,7 +32,6 @@
                         <a class="dropdown-item" href="/products">Product</a>
                     </div>
                 </li>
-                <a href="/users" class="nav-item nav-link">Users</a>
                 <li class="nav-item dropdown">
                     <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
