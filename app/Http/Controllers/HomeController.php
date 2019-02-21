@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Category;
-use Carbon\Carbon;
-use Illuminate\Http\Request;
+use App\Charts\SampleChart;
+use App\User;
 
 class HomeController extends Controller
 {

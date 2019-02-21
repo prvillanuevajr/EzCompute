@@ -57,14 +57,14 @@
                                 <td>{{$detail->product->name}}</td>
                                 <td>{{$detail->product->brand->name}}</td>
                                 <td>{{$detail->quantity}}</td>
-                                <td>₱{{$detail->price}}</td>
-                                <td>₱{{$detail->price * $detail->quantity}}</td>
+                                <td>{{string_to_currency($detail->price)}}</td>
+                                <td>{{string_to_currency($detail->price * $detail->quantity)}}</td>
                             </tr>
                         @endforeach
                         <tr>
                             <td colspan="4"></td>
                             <td><h4 class="font-weight-bold">Total:</h4></td>
-                            <td><h4 class="font-weight-bold">₱{{$order->total_price}}</h4></td>
+                            <td><h4 class="font-weight-bold">{{string_to_currency($order->total_price)}}</h4></td>
                         </tr>
                         </tbody>
                     </table>

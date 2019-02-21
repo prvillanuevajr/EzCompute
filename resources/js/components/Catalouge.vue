@@ -1,18 +1,19 @@
 <template>
     <div class="row">
         <div class="col-12">
-            <div v-if="usp.get('category')" class="col-md-6 offset-md-3 d-md-flex mb-3">
-                <div class="input-group mr-3 w-md-50">
+            <div v-if="usp.get('category')" class="col-md-8 offset-md-2 d-md-flex mb-3">
+                <h3 class="font-weight-bold mr-3">{{usp.get('category')}}</h3>
+                <div class="input-group mr-3 align-self-start brand_select_div">
                     <div class="input-group-prepend">
                         <label class="input-group-text" for="brand">Brand</label>
                     </div>
                     <select class="custom-select" id="brand" v-model="brand" @change="change_params">
                         <option selected>All</option>
-                        <option v-for="brand in rbrands" >{{brand.name}}</option>
+                        <option v-for="brand in rbrands">{{brand.name}}</option>
                     </select>
                 </div>
-                <div class="input-group w-md-50">
-                    <div class="input-group-prepend">
+                <div class="input-group">
+                    <div class="input-group-prepend align-self-start">
                         <label class="input-group-text" for="sort">Sort By</label>
                     </div>
                     <select v-model="sort" class="form-control" id="sort" @change="change_params">
@@ -41,8 +42,8 @@
             <div v-if="products.length" class="m-4"><br><br><br><br><br><br></div>
             <infinite-loading :identifier="infiniteId" spinner="waveDots" @infinite="infiniteHandler">
                 <!--<h2 class="font-weight-bold" slot="spinner">-->
-                    <!--<i class="fa fa-spin fa-spinner"></i>-->
-                    <!--Loading...-->
+                <!--<i class="fa fa-spin fa-spinner"></i>-->
+                <!--Loading...-->
                 <!--</h2>-->
                 <div class="font-weight-bold" slot="no-more">No more products</div>
                 <div class="font-weight-bold" slot="no-results">
@@ -127,5 +128,14 @@
     .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */
     {
         opacity: 0;
+    }
+
+    .brand_select_div {
+        margin-bottom: .5rem;
+    }
+    @media (min-width: 768px) {
+        .brand_select_div {
+            margin-bottom: 0rem;
+        }
     }
 </style>

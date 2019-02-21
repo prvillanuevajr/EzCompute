@@ -20,10 +20,10 @@ Route::post('shop/list', 'ShopController@list');
 
 Route::middleware('auth')->group(function () {
     Route::middleware('customer')->group(function () {
-        Route::post('/cart', 'CartController@store')->middleware('auth');
-        Route::get('/cart', 'CartController@index')->middleware('auth');
-        Route::post('/cart/delete', 'CartController@delete')->middleware('auth');
-        Route::post('/cart/update', 'CartController@update')->middleware('auth');
+        Route::post('/cart', 'CartController@store');
+        Route::get('/cart', 'CartController@index');
+        Route::post('/cart/delete', 'CartController@delete');
+        Route::post('/cart/update', 'CartController@update');
 
         Route::post('/orders', 'OrderController@store');
 
@@ -66,3 +66,59 @@ Route::middleware('admin')->group(function () {
 });
 
 Auth::routes();
+
+Route::get('seed_orders', function (\Illuminate\Http\Request $request) {
+    if ($request->init) {
+        DB::statement('SET FOREIGN_KEY_CHECKS = 0;');
+        \App\Order::query()->truncate();
+        \App\OrderDetail::query()->truncate();
+        \App\InvoiceDetail::query()->truncate();
+        \App\Invoice::query()->truncate();
+        DB::statement('SET FOREIGN_KEY_CHECKS = 1;');
+    }
+    factory(\App\Cart::class, (int)rand(50, 150))->create();
+    $users = \App\User::has('carts')->with('carts')->get();
+    foreach ($users as $user) {
+        $items = $user->carts;
+        $total_price = $items->map(function ($item) {
+            return $item->quantity * $item->product->price;
+        })->sum();
+
+        if ($total_price) {
+            $carbon = \Carbon\Carbon::parse($request->month . '/01/' . $request->year)->addDays(rand(0, 20));
+            $delivery_date = \Carbon\Carbon::parse($carbon)->addDays(3);
+            $order = \App\Order::create([
+                'user_id' => $user->id,
+                'total_price' => $total_price,
+                'status' => 'invoiced',
+                'created_at' => $carbon,
+                'updated_at' => $carbon,
+                'delivery_date' => $delivery_date,
+            ]);
+            $invoice = $order->invoice()->create([
+                'total_price' => $order->total_price,
+                'user_id' => $order->user_id,
+                'created_at' => $carbon,
+                'updated_at' => $carbon,
+            ]);
+            foreach ($items as $item) {
+                $order->details()->create([
+                    'product_id' => $item->product->id,
+                    'price' => $item->product->price,
+                    'quantity' => $item->quantity,
+                ]);
+                $product = $item->product;
+                $invoice->details()->create([
+                    'product_id' => $product->id,
+                    'name' => $product->name,
+                    'brand' => $product->brand->name,
+                    'category' => $product->category->name,
+                    'price' => $product->price,
+                    'quantity' => $item->quantity,
+                ]);
+            }
+        }
+        \App\Cart::query()->forceDelete($items->pluck('id'));    //FLUSH ITEMS ON CART
+    }
+    return 'success';
+});

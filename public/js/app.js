@@ -1998,6 +1998,7 @@ function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 //
 //
 //
+//
 
 var api = '//hn.algolia.com/api/v1/search_by_date?tags=story';
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -6721,7 +6722,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.fade-move[data-v-5341022c] {\n    transition: -webkit-transform .5s;\n    transition: transform .5s;\n    transition: transform .5s, -webkit-transform .5s;\n}\n.fade-enter-active[data-v-5341022c] {\n    transition: opacity .5s;\n}\n.fade-leave-active[data-v-5341022c] {\n    position: absolute;\n}\n.fade-enter[data-v-5341022c], .fade-leave-to[data-v-5341022c] /* .fade-leave-active below version 2.1.8 */\n{\n    opacity: 0;\n}\n", ""]);
+exports.push([module.i, "\n.fade-move[data-v-5341022c] {\n    transition: -webkit-transform .5s;\n    transition: transform .5s;\n    transition: transform .5s, -webkit-transform .5s;\n}\n.fade-enter-active[data-v-5341022c] {\n    transition: opacity .5s;\n}\n.fade-leave-active[data-v-5341022c] {\n    position: absolute;\n}\n.fade-enter[data-v-5341022c], .fade-leave-to[data-v-5341022c] /* .fade-leave-active below version 2.1.8 */\n{\n    opacity: 0;\n}\n.brand_select_div[data-v-5341022c] {\n    margin-bottom: .5rem;\n}\n@media (min-width: 768px) {\n.brand_select_div[data-v-5341022c] {\n        margin-bottom: 0rem;\n}\n}\n", ""]);
 
 // exports
 
@@ -58494,54 +58495,67 @@ var render = function() {
       { staticClass: "col-12" },
       [
         _vm.usp.get("category")
-          ? _c("div", { staticClass: "col-md-6 offset-md-3 d-md-flex mb-3" }, [
-              _c("div", { staticClass: "input-group mr-3 w-md-50" }, [
-                _vm._m(0),
-                _vm._v(" "),
-                _c(
-                  "select",
-                  {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.brand,
-                        expression: "brand"
-                      }
-                    ],
-                    staticClass: "custom-select",
-                    attrs: { id: "brand" },
-                    on: {
-                      change: [
-                        function($event) {
-                          var $$selectedVal = Array.prototype.filter
-                            .call($event.target.options, function(o) {
-                              return o.selected
-                            })
-                            .map(function(o) {
-                              var val = "_value" in o ? o._value : o.value
-                              return val
-                            })
-                          _vm.brand = $event.target.multiple
-                            ? $$selectedVal
-                            : $$selectedVal[0]
-                        },
-                        _vm.change_params
-                      ]
-                    }
-                  },
-                  [
-                    _c("option", { attrs: { selected: "" } }, [_vm._v("All")]),
-                    _vm._v(" "),
-                    _vm._l(_vm.rbrands, function(brand) {
-                      return _c("option", [_vm._v(_vm._s(brand.name))])
-                    })
-                  ],
-                  2
-                )
+          ? _c("div", { staticClass: "col-md-8 offset-md-2 d-md-flex mb-3" }, [
+              _c("h3", { staticClass: "font-weight-bold mr-3" }, [
+                _vm._v(_vm._s(_vm.usp.get("category")))
               ]),
               _vm._v(" "),
-              _c("div", { staticClass: "input-group w-md-50" }, [
+              _c(
+                "div",
+                {
+                  staticClass:
+                    "input-group mr-3 align-self-start brand_select_div"
+                },
+                [
+                  _vm._m(0),
+                  _vm._v(" "),
+                  _c(
+                    "select",
+                    {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.brand,
+                          expression: "brand"
+                        }
+                      ],
+                      staticClass: "custom-select",
+                      attrs: { id: "brand" },
+                      on: {
+                        change: [
+                          function($event) {
+                            var $$selectedVal = Array.prototype.filter
+                              .call($event.target.options, function(o) {
+                                return o.selected
+                              })
+                              .map(function(o) {
+                                var val = "_value" in o ? o._value : o.value
+                                return val
+                              })
+                            _vm.brand = $event.target.multiple
+                              ? $$selectedVal
+                              : $$selectedVal[0]
+                          },
+                          _vm.change_params
+                        ]
+                      }
+                    },
+                    [
+                      _c("option", { attrs: { selected: "" } }, [
+                        _vm._v("All")
+                      ]),
+                      _vm._v(" "),
+                      _vm._l(_vm.rbrands, function(brand) {
+                        return _c("option", [_vm._v(_vm._s(brand.name))])
+                      })
+                    ],
+                    2
+                  )
+                ]
+              ),
+              _vm._v(" "),
+              _c("div", { staticClass: "input-group" }, [
                 _vm._m(1),
                 _vm._v(" "),
                 _c(
@@ -58752,7 +58766,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "input-group-prepend" }, [
+    return _c("div", { staticClass: "input-group-prepend align-self-start" }, [
       _c("label", { staticClass: "input-group-text", attrs: { for: "sort" } }, [
         _vm._v("Sort By")
       ])

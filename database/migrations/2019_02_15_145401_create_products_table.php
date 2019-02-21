@@ -21,7 +21,7 @@ class CreateProductsTable extends Migration
             $table->text('description');
             $table->integer('quantity')->default('0');
             $table->string('image')->default('images/Logo.png');
-            $table->float('price');
+            $table->decimal('price');
             $table->timestamps();
 
             $table->foreign('brand_id')->references('id')->on('brands')->onDelete('cascade');

@@ -18,7 +18,7 @@ class CreateInvoiceDetailsTable extends Migration
             $table->unsignedInteger('invoice_id');
             $table->unsignedInteger('product_id');
             $table->integer('quantity');
-            $table->float('price');
+            $table->decimal('price',13,2);
             $table->string('name');
             $table->string('brand');
             $table->string('category');

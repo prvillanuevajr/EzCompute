@@ -18,7 +18,7 @@ class CreateOrdersTable extends Migration
             $table->unsignedInteger('user_id');
             $table->timestamp('delivery_date')->nullable();
             $table->string('status')->default('pending');
-            $table->float('total_price');
+            $table->decimal('total_price',13,2);
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
