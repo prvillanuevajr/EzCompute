@@ -6,21 +6,14 @@ function string_to_currency($money)
     return $money < 0 ? "({$formatted})" : "{$formatted}";
 }
 
-function checkIfActive($type)
+function deactivated($request_type)
 {
-    switch ($type) {
-        case 'api':
-            break;
-    }
-
-    if (auth()->user()->deactivated_at) {
-        switch ($type) {
+        switch ($request_type) {
             case 'api':
                 return response(['message' => 'You account has beend deactivated!'], 406);
                 break;
-            case 'redirect':
+            case 'html':
                 return back()->withErrors(['You account has beend deactivated!']);
                 break;
         }
-    }
 }

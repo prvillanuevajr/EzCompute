@@ -16,7 +16,7 @@ class CartController extends Controller
 
     public function store(Request $request)
     {
-        return checkIfActive('redirect');
+        if (auth()->user()->deactivated_at) return deactivated('html');
         $product = Product::find($request->product_id);
         if (!$product->quantity) return response('out of stock', 406);
         $noitem = auth()->user()->carts()->where('product_id', $product->id)->get()->isEmpty();

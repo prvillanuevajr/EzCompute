@@ -35,7 +35,7 @@
         </div>
         <hr>
     @endif
-    <catalouge :products="{{$products}}"></catalouge>
+    <catalouge class="catalouge" :rbrands="{{$brands}}"></catalouge>
 @endsection
 @section('scripts')
 @endsection

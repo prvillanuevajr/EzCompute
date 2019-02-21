@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Brand;
 use App\Category;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Schema;
@@ -29,6 +30,7 @@ class AppServiceProvider extends ServiceProvider
     {
         Schema::defaultStringLength(191);
         View::share('categories', Category::all());
+        View::share('brands', Brand::all());
         Blade::if('admin', function () {
             return (auth()->check() && auth()->user()->is_admin);
         });

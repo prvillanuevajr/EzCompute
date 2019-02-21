@@ -1,31 +1,33 @@
 <template>
     <div class="row">
-        <div v-if="!products.length" class="col-lg-12">
-            <div class="jumbotron jumbotron-fluid">
-                <div class="container">
-                    <h1 class="display-4 d-block text-center"><i class="fa fa-frown-o fa-2x"></i></h1>
-                    <h1 class="display-4 d-block text-center font-weight-bold">Nothing found!</h1>
-                    <h4 class="d-block text-center font-weight-bold">
-                        <p class="lead font-weight-bold">Sorry, but nothing matched your search terms.</p>
-                        <p class="lead font-weight-bold">Please try again.</p>
-                    </h4>
+        <div class="col-12">
+            <div v-if="usp.get('category')" class="col-md-6 offset-md-3 d-md-flex mb-3">
+                <div class="input-group mr-3 w-md-50">
+                    <div class="input-group-prepend">
+                        <label class="input-group-text" for="brand">Brand</label>
+                    </div>
+                    <select class="custom-select" id="brand" v-model="brand" @change="change_params">
+                        <option selected>All</option>
+                        <option v-for="brand in rbrands" >{{brand.name}}</option>
+                    </select>
+                </div>
+                <div class="input-group w-md-50">
+                    <div class="input-group-prepend">
+                        <label class="input-group-text" for="sort">Sort By</label>
+                    </div>
+                    <select v-model="sort" class="form-control" id="sort" @change="change_params">
+                        <option selected>Price, high to low</option>
+                        <option>Price, low to high</option>
+                        <option>Alphabetically, A-Z</option>
+                        <option>Alphabetically, Z-A</option>
+                    </select>
                 </div>
             </div>
-        </div>
-        <div v-if="brands.length" class="col-md-3 col-lg-2 mb-sm-4">
-            <ul class="list-group">
-                <li class="list-group-item font-weight-bold text-center">BRANDS</li>
-                <template v-for="brand in brands">
-                    <input type="checkbox" v-model="selected_brands" :value="brand" :id="brand"/>
-                    <label class="list-group-item" :for="brand">{{brand}}</label>
-                </template>
-            </ul>
-        </div>
-        <div class="col-md-9 col-lg-10">
-            <transition-group name="fade" class="d-flex flex-wrap" tag="div">
-                <div v-for="product in filteredProducts" class="mb-3 mr-sm-3" v-bind:key="product.id">
+            <transition-group name="fade" class="d-flex flex-wrap justify-content-center" tag="div">
+                <div v-for="product in products" class="mb-3 mr-sm-3" v-bind:key="product.name">
                     <div class="card border-dark" style="width: 18rem;">
-                        <img height="200" class="card-cap1 card-img-top border-dark" :src="`/images/${product.image}`" alt="Card image cap">
+                        <img height="200" class="card-cap1 card-img-top border-dark" :src="`/images/${product.image}`"
+                             alt="Card image cap">
                         <div class="card-body">
                             <strong>{{product.name}}</strong><br>
                             <strong>{{product.brand.name}}</strong>
@@ -36,32 +38,76 @@
                     </div>
                 </div>
             </transition-group>
+            <div v-if="products.length" class="m-4"><br><br><br><br><br><br></div>
+            <infinite-loading :identifier="infiniteId" spinner="waveDots" @infinite="infiniteHandler">
+                <!--<h2 class="font-weight-bold" slot="spinner">-->
+                    <!--<i class="fa fa-spin fa-spinner"></i>-->
+                    <!--Loading...-->
+                <!--</h2>-->
+                <div class="font-weight-bold" slot="no-more">No more products</div>
+                <div class="font-weight-bold" slot="no-results">
+                    <div class="col-lg-12">
+                        <div class="jumbotron jumbotron-fluid">
+                            <div class="container">
+                                <h1 class="display-4 d-block text-center"><i class="fa fa-frown-o fa-2x"></i></h1>
+                                <h1 class="display-4 d-block text-center font-weight-bold">Nothing found!</h1>
+                                <h4 class="d-block text-center font-weight-bold">
+                                    <p class="lead font-weight-bold">Sorry, but nothing matched your search terms.</p>
+                                    <p class="lead font-weight-bold">Please try again.</p>
+                                </h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </infinite-loading>
         </div>
     </div>
 </template>
 
 <script>
+    import InfiniteLoading from 'vue-infinite-loading';
+
+    const api = '//hn.algolia.com/api/v1/search_by_date?tags=story';
+
     export default {
-        props: ['products'],
-        data() {
-            return {selected_brands: []}
+        props: ['rbrands'],
+        components: {
+            InfiniteLoading,
         },
-        created() {
-            // this.selected_brands = this.brands
+        data() {
+            return {
+                infiniteId: 1,
+                brand: 'All',
+                sort: 'Price, high to low',
+                products: [],
+                usp: new URLSearchParams(window.location.search),
+            }
         },
         methods: {
             toCurrency(num) {
                 return (num).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+            },
+            infiniteHandler($state) {
+                axios.post(`/shop/list`, {
+                    offset: this.products.length,
+                    brand: this.brand.match('All') ? null : this.brand,
+                    category: this.usp.get('category'),
+                    search: this.usp.get('search'),
+                    sort: this.sort
+                }).then(({data}) => {
+                    if (data.length) {
+                        this.products.push(...data);
+                        $state.loaded();
+                    } else {
+                        $state.complete();
+                    }
+                });
+            },
+            change_params() {
+                this.products = [];
+                this.infiniteId += 1;
             }
         },
-        computed: {
-            brands() {
-                return _.uniq(this.products.map(product => product.brand.name))
-            },
-            filteredProducts() {
-                return this.products.filter(product => this.selected_brands.length ? this.selected_brands.includes(product.brand.name) : true)
-            }
-        }
     }
 </script>
 
@@ -69,73 +115,17 @@
     .fade-move {
         transition: transform .5s;
     }
+
     .fade-enter-active {
         transition: opacity .5s;
     }
-    .fade-leave-active{
+
+    .fade-leave-active {
         position: absolute;
     }
 
     .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */
     {
         opacity: 0;
-    }
-
-    div.sticky {
-        position: -webkit-sticky !important;
-        position: sticky !important;
-        top: 0 !important;
-    }
-
-    .list-group-item {
-        user-select: none;
-    }
-
-    .list-group input[type="checkbox"] {
-        display: none;
-    }
-
-    .list-group input[type="checkbox"] + .list-group-item {
-        cursor: pointer;
-    }
-
-    .list-group input[type="checkbox"] + .list-group-item:before {
-        content: "\2713";
-        color: transparent;
-        font-weight: bold;
-        margin-right: 1em;
-    }
-
-    .list-group input[type="checkbox"]:checked + .list-group-item {
-        background-color: #0275D8;
-        color: #FFF;
-    }
-
-    .list-group input[type="checkbox"]:checked + .list-group-item:before {
-        color: inherit;
-    }
-
-    .list-group input[type="radio"] {
-        display: none;
-    }
-
-    .list-group input[type="radio"] + .list-group-item {
-        cursor: pointer;
-    }
-
-    .list-group input[type="radio"] + .list-group-item:before {
-        content: "\2022";
-        color: transparent;
-        font-weight: bold;
-        margin-right: 1em;
-    }
-
-    .list-group input[type="radio"]:checked + .list-group-item {
-        background-color: #0275D8;
-        color: #FFF;
-    }
-
-    .list-group input[type="radio"]:checked + .list-group-item:before {
-        color: inherit;
     }
 </style>

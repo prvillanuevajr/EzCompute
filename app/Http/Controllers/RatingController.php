@@ -11,7 +11,7 @@ class RatingController extends Controller
     public function store(Request $request, Product $product)
     {
 
-        return checkIfActive('api');
+        if (auth()->user()->deactivated_at) return deactivated('api');
         $request->validate([
             'rating' => 'required',
             'comment' => 'required',
@@ -36,7 +36,7 @@ class RatingController extends Controller
 
     public function delete(Rating $rating)
     {
-        return checkIfActive('api');
+        if (auth()->user()->deactivated_at) return deactivated('api');
         if (auth()->user()->is_admin == 1 || $rating->user_id == auth()->id()) {
             $rating->forceDelete();
             return response(null, 200);

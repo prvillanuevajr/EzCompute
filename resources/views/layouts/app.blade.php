@@ -11,6 +11,8 @@
     <script>
         window.user = {!! !auth()->check() ?: auth()->user() !!};
     </script>
+    <style>
+    </style>
 </head>
 <body>
 <div id="app">

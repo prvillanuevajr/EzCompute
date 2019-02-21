@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', 'ShopController@index');
 Route::get('/shop', 'ShopController@index');
 Route::get('/shop/product', 'ShopController@show');
+Route::post('shop/list', 'ShopController@list');
 
 Route::middleware('auth')->group(function () {
     Route::middleware('customer')->group(function () {
