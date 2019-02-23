@@ -9,20 +9,29 @@
 
 .navbar-laravel {
   background-color: white;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+  box-shadow: 2px 2px 4px $primary;
   @extend .p-3
 }
 
-.nav-link {
-  color: #636b6f;
-  padding: 0 25px;
-  font-size: 13px;
-  font-weight: 600;
-  letter-spacing: .1rem;
-  text-decoration: none;
-  text-transform: capitalize;
-
+.card, input, select, textarea, .btn-primary, .btn-outline-primary {
+  box-shadow: 3px 3px 15px $primary;
 }
+
+a.carousel-item {
+  text-decoration: none;
+  text-underline: none;
+  color: #000;
+}
+
+//.nav-link {
+//  color: #636b6f;
+//  padding: 0 25px;
+//  font-size: 13px;
+//  font-weight: 600;
+//  letter-spacing: .1rem;
+//  text-decoration: none;
+//  text-transform: capitalize;
+//}
 
 .navbar-nav li:hover > ul.dropdown-menu {
   display: block;
@@ -44,7 +53,7 @@ div.dropdown-menu a.dropdown-item {
 }
 
 a.btn.card-footer:hover {
-  @extend .btn-dark
+  @extend .btn-primary
 }
 
 td.td_editable::before {
@@ -63,32 +72,33 @@ td.td_editable:hover {
   font-weight: bold;
 }
 
+.shop-carousel-div {
+  min-height: 275px;
+  box-shadow: 2px 2px 4px $primary;
+}
+
 .hidden_li {
   display: none;
 }
 
-.brands_ul:hover > li.hidden_li{
+.brands_ul:hover > li.hidden_li {
   display: block;
 }
 
-
-::-webkit-scrollbar-track
-{
-  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
   border-radius: 10px;
   background-color: #F5F5F5;
 }
 
-::-webkit-scrollbar
-{
+::-webkit-scrollbar {
   width: 8px;
   background-color: #F5F5F5;
 }
 
-::-webkit-scrollbar-thumb
-{
+::-webkit-scrollbar-thumb {
   border-radius: 10px;
-  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
   background-color: #555;
 }
 

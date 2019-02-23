@@ -1995,10 +1995,6 @@ function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 //
 //
 //
-//
-//
-//
-//
 
 var api = '//hn.algolia.com/api/v1/search_by_date?tags=story';
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2018,6 +2014,9 @@ var api = '//hn.algolia.com/api/v1/search_by_date?tags=story';
   methods: {
     toCurrency: function toCurrency(num) {
       return num.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+    },
+    gotodetails: function gotodetails(product) {
+      window.location.href = "/shop/product?name=".concat(product.name, "&id=").concat(product.id);
     },
     infiniteHandler: function infiniteHandler($state) {
       var _this = this;
@@ -2239,6 +2238,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   computed: {
     average_ratings: function average_ratings() {
+      if (!this.ratings.length) return 0;
       return parseFloat(Math.round(this.ratings.map(function (rating) {
         return rating.rating;
       }).reduce(function (a, b) {
@@ -6726,7 +6726,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.fade-move[data-v-5341022c] {\n    transition: -webkit-transform .5s;\n    transition: transform .5s;\n    transition: transform .5s, -webkit-transform .5s;\n}\n.fade-enter-active[data-v-5341022c] {\n    transition: opacity .5s;\n}\n.fade-leave-active[data-v-5341022c] {\n    position: absolute;\n}\n.fade-enter[data-v-5341022c], .fade-leave-to[data-v-5341022c] /* .fade-leave-active below version 2.1.8 */\n{\n    opacity: 0;\n}\n.brand_select_div[data-v-5341022c] {\n    margin-bottom: .5rem;\n}\n@media (min-width: 768px) {\n.brand_select_div[data-v-5341022c] {\n        margin-bottom: 0rem;\n}\n}\n", ""]);
+exports.push([module.i, "\n.card[data-v-5341022c]:hover {\n    background-color: rgba(0,0,255,.09);\n    box-shadow: 10px 10px 15px #3490dc;\n    cursor: pointer;\n}\nlabel.input-group-text[data-v-5341022c] {\n    box-shadow: 2px 2px 15px #3490dc;\n}\n.fade-move[data-v-5341022c] {\n    transition: -webkit-transform .5s;\n    transition: transform .5s;\n    transition: transform .5s, -webkit-transform .5s;\n}\n.fade-enter-active[data-v-5341022c] {\n    transition: opacity .5s;\n}\n.fade-leave-active[data-v-5341022c] {\n    position: absolute;\n}\n.fade-enter[data-v-5341022c], .fade-leave-to[data-v-5341022c] /* .fade-leave-active below version 2.1.8 */\n{\n    opacity: 0;\n}\n.brand_select_div[data-v-5341022c] {\n    margin-bottom: .5rem;\n}\n@media (min-width: 768px) {\n.brand_select_div[data-v-5341022c] {\n        margin-bottom: 0rem;\n}\n}\n", ""]);
 
 // exports
 
@@ -6745,7 +6745,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.fade-move[data-v-1e98fe4a] {\n    transition: -webkit-transform .5s;\n    transition: transform .5s;\n    transition: transform .5s, -webkit-transform .5s;\n}\n.fade-enter-active[data-v-1e98fe4a] {\n    transition: opacity .5s;\n}\n.fade-leave-active[data-v-1e98fe4a] {\n    position: absolute;\n}\n.fade-enter[data-v-1e98fe4a], .fade-leave-to[data-v-1e98fe4a] /* .fade-leave-active below version 2.1.8 */\n{\n    opacity: 0;\n}\n.reviews_section[data-v-1e98fe4a] {\n    max-height: 300px;\n    overflow-y: auto;\n}\n.reviews_section[data-v-1e98fe4a]:hover {\n}\n\n", ""]);
+exports.push([module.i, "\n.fade-move[data-v-1e98fe4a] {\n    transition: -webkit-transform .5s;\n    transition: transform .5s;\n    transition: transform .5s, -webkit-transform .5s;\n}\n.fade-enter-active[data-v-1e98fe4a] {\n    transition: opacity .5s;\n}\n.fade-leave-active[data-v-1e98fe4a] {\n    position: absolute;\n}\n.fade-enter[data-v-1e98fe4a], .fade-leave-to[data-v-1e98fe4a] /* .fade-leave-active below version 2.1.8 */\n{\n    opacity: 0;\n}\n\n/*.reviews_section {*/\n/*max-height: 300px;*/\n/*overflow-y: auto;*/\n/*}*/\n/*.reviews_section:hover {*/\n/*}*/\n\n", ""]);
 
 // exports
 
@@ -58624,12 +58624,17 @@ var render = function() {
                 _c(
                   "div",
                   {
-                    staticClass: "card border-dark",
-                    staticStyle: { width: "18rem" }
+                    staticClass: "card",
+                    staticStyle: { width: "18rem" },
+                    on: {
+                      click: function($event) {
+                        return _vm.gotodetails(product)
+                      }
+                    }
                   },
                   [
                     _c("img", {
-                      staticClass: "card-cap1 card-img-top border-dark",
+                      staticClass: "card-cap1 card-img-top p-2",
                       attrs: {
                         height: "200",
                         src: "/images/" + product.image,
@@ -58638,32 +58643,21 @@ var render = function() {
                     }),
                     _vm._v(" "),
                     _c("div", { staticClass: "card-body" }, [
-                      _c("strong", [_vm._v(_vm._s(product.name))]),
+                      _c("h5", { staticClass: "font-weight-bold" }, [
+                        _vm._v(_vm._s(product.name))
+                      ]),
                       _c("br"),
                       _vm._v(" "),
-                      _c("strong", [_vm._v(_vm._s(product.brand.name))]),
+                      _c("h5", [_vm._v(_vm._s(product.brand.name))]),
                       _vm._v(" "),
                       _c("h3", [
-                        _c("span", { staticClass: "badge badge-danger" }, [
-                          _vm._v("₱" + _vm._s(_vm.toCurrency(product.price)))
-                        ])
+                        _c(
+                          "span",
+                          { staticClass: "badge badge-success w-100" },
+                          [_vm._v("₱" + _vm._s(_vm.toCurrency(product.price)))]
+                        )
                       ])
-                    ]),
-                    _vm._v(" "),
-                    _c(
-                      "a",
-                      {
-                        staticClass: "btn card-footer",
-                        attrs: {
-                          href:
-                            "/shop/product?name=" +
-                            product.name +
-                            "&id=" +
-                            product.id
-                        }
-                      },
-                      [_c("strong", [_vm._v("Details")])]
-                    )
+                    ])
                   ]
                 )
               ]
@@ -58671,17 +58665,6 @@ var render = function() {
           }),
           0
         ),
-        _vm._v(" "),
-        _vm.products.length
-          ? _c("div", { staticClass: "m-4" }, [
-              _c("br"),
-              _c("br"),
-              _c("br"),
-              _c("br"),
-              _c("br"),
-              _c("br")
-            ])
-          : _vm._e(),
         _vm._v(" "),
         _c(
           "infinite-loading",
@@ -58892,7 +58875,7 @@ var render = function() {
         _vm._v(" "),
         _c(
           "div",
-          { staticClass: "card" },
+          { staticClass: "card mb-2" },
           [
             _vm.user.email && !_vm.user.is_admin
               ? [
@@ -58979,7 +58962,7 @@ var render = function() {
                           attrs: {
                             width: "64",
                             height: "64",
-                            src: "https://image.ibb.co/jw55Ex/def_face.jpg"
+                            src: "/images/blank.png"
                           }
                         }),
                         _vm._v(" "),

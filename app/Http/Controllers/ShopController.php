@@ -16,7 +16,7 @@ class ShopController extends Controller
 
     public function index()
     {
-        $recently_added_products = Product::latest()->limit(3)->get();
+        $recently_added_products = Product::latest()->limit(5)->get();
         return view('shop.index', compact('recently_added_products'));
     }
 
@@ -26,7 +26,13 @@ class ShopController extends Controller
         if (!$request->filled('category') && !$request->filled('search') && !$request->filled('brand')) {
             $products = $products->with('brand');
         } else if ($request->filled('search')) {
-            $products = $products->where('name', 'like', '%' . $request->search . '%')->with('brand');
+            $products = $products->where('name', 'like', '%' . $request->search . '%')
+                ->orWhereHas('brand', function ($query) use ($request) {
+                    return $query->where('name', 'like','%'. $request->search.'%');
+                })->orWhereHas('category', function ($query) use ($request) {
+                    return $query->where('name', 'like','%'. $request->search.'%');
+                })
+                ->with('brand');
         }
         if ($request->filled('category')) {
             $categories = Category::all();

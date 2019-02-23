@@ -26,25 +26,21 @@
             </div>
             <transition-group name="fade" class="d-flex flex-wrap justify-content-center" tag="div">
                 <div v-for="product in products" class="mb-3 mr-sm-3" v-bind:key="product.name">
-                    <div class="card border-dark" style="width: 18rem;">
-                        <img height="200" class="card-cap1 card-img-top border-dark" :src="`/images/${product.image}`"
+                    <div @click="gotodetails(product)" class="card" style="width: 18rem;">
+                        <img height="200" class="card-cap1 card-img-top p-2" :src="`/images/${product.image}`"
                              alt="Card image cap">
                         <div class="card-body">
-                            <strong>{{product.name}}</strong><br>
-                            <strong>{{product.brand.name}}</strong>
-                            <h3><span class="badge badge-danger">₱{{toCurrency(product.price)}}</span></h3>
+                            <h5 class="font-weight-bold">{{product.name}}</h5><br>
+                            <h5>{{product.brand.name}}</h5>
+                            <h3><span class="badge badge-success w-100">₱{{toCurrency(product.price)}}</span></h3>
                         </div>
-                        <a :href="`/shop/product?name=${product.name}&id=${product.id}`"
-                           class="btn card-footer"><strong>Details</strong></a>
+                        <!--<a :href="`/shop/product?name=${product.name}&id=${product.id}`"-->
+                        <!--class="btn card-footer"><strong>Details</strong></a>-->
                     </div>
                 </div>
             </transition-group>
-            <div v-if="products.length" class="m-4"><br><br><br><br><br><br></div>
+            <!--<div v-if="products.length" class="m-4"><br><br><br><br><br><br></div>-->
             <infinite-loading :identifier="infiniteId" spinner="waveDots" @infinite="infiniteHandler">
-                <!--<h2 class="font-weight-bold" slot="spinner">-->
-                <!--<i class="fa fa-spin fa-spinner"></i>-->
-                <!--Loading...-->
-                <!--</h2>-->
                 <div class="font-weight-bold" slot="no-more">No more products</div>
                 <div class="font-weight-bold" slot="no-results">
                     <div class="col-lg-12">
@@ -88,6 +84,9 @@
             toCurrency(num) {
                 return (num).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
             },
+            gotodetails(product) {
+                window.location.href = `/shop/product?name=${product.name}&id=${product.id}`;
+            },
             infiniteHandler($state) {
                 axios.post(`/shop/list`, {
                     offset: this.products.length,
@@ -113,6 +112,16 @@
 </script>
 
 <style scoped>
+    .card:hover {
+        background-color: rgba(0,0,255,.09);
+        box-shadow: 10px 10px 15px #3490dc;
+        cursor: pointer;
+    }
+
+    label.input-group-text {
+        box-shadow: 2px 2px 15px #3490dc;
+    }
+
     .fade-move {
         transition: transform .5s;
     }
@@ -133,6 +142,7 @@
     .brand_select_div {
         margin-bottom: .5rem;
     }
+
     @media (min-width: 768px) {
         .brand_select_div {
             margin-bottom: 0rem;

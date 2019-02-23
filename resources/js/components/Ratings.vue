@@ -16,7 +16,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="card">
+                <div class="card mb-2">
                     <template v-if="user.email && !user.is_admin">
                         <div class="card-body">
                             <hr>
@@ -30,7 +30,7 @@
                                 </div>
                                 <button @click="submit_review" class="btn btn-primary">submit</button>
                             </div>
-                    </div>
+                        </div>
                     </template>
                 </div>
                 <div class="reviews_section">
@@ -39,7 +39,7 @@
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-md-2">
-                                        <img width="64" height="64" src="https://image.ibb.co/jw55Ex/def_face.jpg"
+                                        <img width="64" height="64" src="/images/blank.png"
                                              class="img img-rounded img-fluid"/>
                                         <p class="text-secondary text-center">{{Ago(rating.created_at)}}</p>
                                     </div>
@@ -129,6 +129,7 @@
         },
         computed: {
             average_ratings() {
+                if (!this.ratings.length) return 0;
                 return parseFloat(Math.round(this.ratings.map(rating => rating.rating).reduce((a, b) => a + b, 0) / this.ratings.length * 100) / 100).toFixed(2);
 
             }
@@ -154,11 +155,11 @@
         opacity: 0;
     }
 
-    .reviews_section {
-        max-height: 300px;
-        overflow-y: auto;
-    }
-    .reviews_section:hover {
-    }
+    /*.reviews_section {*/
+    /*max-height: 300px;*/
+    /*overflow-y: auto;*/
+    /*}*/
+    /*.reviews_section:hover {*/
+    /*}*/
 
 </style>

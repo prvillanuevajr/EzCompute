@@ -65,7 +65,7 @@
             <form class="form-inline my-2 my-lg-0" action="/shop">
                 <input class="form-control mr-sm-2" type="search" placeholder="Search product" value="{{ app('request')->input('search') }}"
                        name="search" aria-label="Search">
-                <button class="btn btn-outline-success">Search</button>
+                <button class="btn btn-outline-primary">Search</button>
             </form>
             <ul class="navbar-nav ml-auto">
                 <!-- Authentication Links -->
