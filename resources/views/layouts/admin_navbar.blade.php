@@ -13,11 +13,6 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <!-- Left Side Of Navbar -->
             <ul class="navbar-nav mr-auto">
-
-            </ul>
-
-            <!-- Right Side Of Navbar -->
-            <ul class="navbar-nav ml-auto">
                 <a href="/orders" class="nav-item nav-link">Orders</a>
                 <a href="/users" class="nav-item nav-link">Users</a>
                 <a href="/dashboard" class="nav-item nav-link">Dashboard</a>
@@ -33,6 +28,11 @@
                         <a class="dropdown-item" href="/products">Product</a>
                     </div>
                 </li>
+            </ul>
+
+            <!-- Right Side Of Navbar -->
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item"><a class="nav-link" href="/notifications"><i class="fa fa-bell"></i></a></li>
                 <li class="nav-item dropdown">
                     <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>

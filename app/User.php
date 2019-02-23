@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Illuminate\Notifications\DatabaseNotification;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -33,6 +34,17 @@ class User extends Authenticatable
      *
      * @var array
      */
+
+    public function notifs($request)
+    {
+        $sort_array = ['Ascending' => 'asc', 'Descending' => 'desc'];
+        $sort_by_array = ['Date' => 'created_at', 'Type' => 'notifiable_type'];
+
+        return $this -> morphMany(DatabaseNotification::class, "notifiable")
+            ->orderBy('read_at','desc')
+            ->orderBy($sort_by_array[$request->sortBy], $sort_array[$request->sort])->limit(10)->offset($request->offset);
+    }
+
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];

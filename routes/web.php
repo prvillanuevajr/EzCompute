@@ -37,6 +37,10 @@ Route::middleware('auth')->group(function () {
 
     Route::post('/ratings/{product}/store', 'RatingController@store');
     Route::post('/ratings/{rating}/delete', 'RatingController@delete');
+
+    Route::get('/notifications', 'NotificationController@index');
+    Route::patch('/notifications/read', 'NotificationController@mark_as_read');
+    Route::post('/notifications/list', 'NotificationController@list');
 });
 
 

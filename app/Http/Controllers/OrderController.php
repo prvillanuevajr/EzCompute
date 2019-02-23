@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Cart;
+use App\Notifications\OrderPlaced;
 use App\Order;
 use App\Product;
+use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use function PHPSTORM_META\map;
@@ -31,7 +33,7 @@ class OrderController extends Controller
             'total_price' => $order->total_price,
             'user_id' => $order->user_id
         ]);
-        foreach ($order->details as $detail){
+        foreach ($order->details as $detail) {
             $product = Product::find($detail->product_id);
             $invoice->details()->create([
                 'product_id' => $detail->product_id,
@@ -82,6 +84,10 @@ class OrderController extends Controller
             }
         }
         Cart::query()->forceDelete($items->pluck('id'));    //FLUSH ITEMS ON CART
+        $admins = User::where('is_admin', true)->get();
+        foreach ($admins as $admin) {
+            $admin->notify(new OrderPlaced($order));
+        }
         return redirect('/orders/' . $order->id);
     }
 }

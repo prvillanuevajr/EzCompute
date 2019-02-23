@@ -1,10 +1,11 @@
-
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
  * building robust, powerful web applications using Vue and Laravel.
  */
 window.Highcharts = require('./highchart');
+window.Moment = require('moment');
+window.topeso = (num) => '₱' + (num).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
 require('./bootstrap');
 window.Vue = require('vue');
 window.Swal = require('sweetalert2');
@@ -20,10 +21,12 @@ window.Swal = require('sweetalert2');
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 import StarRating from 'vue-star-rating'
+
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('catalouge', require('./components/Catalouge.vue').default);
 Vue.component('cart', require('./components/Cart.vue').default);
 Vue.component('ratings', require('./components/Ratings.vue').default);
+Vue.component('notifications', require('./components/Notifications').default);
 Vue.component('star-rating', StarRating);
 
 /**
