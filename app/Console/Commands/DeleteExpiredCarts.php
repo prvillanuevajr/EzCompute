@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Cart;
+use App\Product;
 use Illuminate\Console\Command;
 
 class DeleteExpiredCarts extends Command
@@ -39,7 +40,6 @@ class DeleteExpiredCarts extends Command
     public function handle()
     {
         $expired_cart_items = Cart::where('created_at', '<=', now()->subHours(2))->get();
-        if ($expired_cart_items->count()) {
             foreach ($expired_cart_items as $item) {
                 $product = Product::find($item->product_id);
                 $product->quantity += $item->quantity;
@@ -47,5 +47,4 @@ class DeleteExpiredCarts extends Command
                 $item->forceDelete();
             }
         }
-    }
 }
