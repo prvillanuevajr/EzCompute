@@ -110,9 +110,14 @@
 
 <style scoped>
     .card:hover {
-        background-color: rgba(0,0,255,.09);
+        /*background-color: rgba(0,0,255,.09);*/
         box-shadow: 10px 10px 15px #3490dc;
+        transform: translateY(-.50em);
         cursor: pointer;
+    }
+
+    .card{
+        transition-duration: .5s;
     }
 
     label.input-group-text {

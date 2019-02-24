@@ -28,9 +28,11 @@ class ShopController extends Controller
         } else if ($request->filled('search')) {
             $products = $products->where('name', 'like', '%' . $request->search . '%')
                 ->orWhereHas('brand', function ($query) use ($request) {
-                    return $query->where('name', 'like','%'. $request->search.'%');
+                    return $query->where('name', 'like', '%' . $request->search . '%');
                 })->orWhereHas('category', function ($query) use ($request) {
-                    return $query->where('name', 'like','%'. $request->search.'%');
+                    return $query->where('name', 'like', '%' . $request->search . '%')->orWherehas('parent', function ($qq) use ($request) {
+                        $qq->where('name', 'like', '%' . $request->search . '%');
+                    });
                 })
                 ->with('brand');
         }
