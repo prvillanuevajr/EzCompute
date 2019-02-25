@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Cart;
+use App\Notifications\OrderAccepted;
 use App\Notifications\OrderPlaced;
 use App\Order;
 use App\Product;
@@ -44,6 +45,7 @@ class OrderController extends Controller
                 'quantity' => $detail->quantity,
             ]);
         }
+        User::find($order->user_id)->notify(new OrderAccepted($order));
         return back();
     }
 

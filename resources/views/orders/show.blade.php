@@ -29,7 +29,7 @@
                                     <div class="form-group">
                                         <label for="delivery_date">Set Delivery Date</label>
                                         <div class="d-flex justify-content-between align-items-baseline">
-                                            <input required id="delivery_date" name="delivery_date" type="date"
+                                            <input required id="delivery_date" name="delivery_date" type="text"
                                                    class="form-control mr-4">
                                             <button class="btn btn-success btn-sm float-right">Confirm</button>
                                         </div>
@@ -40,6 +40,11 @@
                         <hr>
                     @endif
                     @endadmin
+                    <div class="d-flex">
+                        <h3 class="flex-grow-1 font-weight-bold">{{$order->user->name}}</h3>
+                        <h4 class="font-weight-bold">Date ordered: {{$order->created_at->toFormattedDateString()}}</h4>
+                    </div>
+                    <hr>
                     <table class="table table-borderless">
                         <thead>
                         <th></th>
@@ -74,4 +79,9 @@
     </div>
 @endsection
 @section('scripts')
+    <script>
+        $('#delivery_date').datepicker({
+            startDate: new Date()
+        })
+    </script>
 @endsection

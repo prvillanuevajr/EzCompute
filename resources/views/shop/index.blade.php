@@ -8,10 +8,10 @@
                         @foreach($recently_added_products as $key => $product)
                             <a href="shop/product?name={{$product->name}}&id={{$product->id}}" class="carousel-item @if(!$key) active @endif">
                                 <h3 class="font-weight-bold">New Arival</h3>
-                                <div class="d-md-flex">
+                                <div class="d-md-flex text-sm-only-center">
                                     <img width="256" height="256" class="img-thumbnail shop-carousel-img" src="{{asset('images/'.$product->image)}}" alt="Los Angeles">
                                     <div class="d-flex flex-column p-4 align-items-center">
-                                        <h3 class="display-4">{{$product->name}}</h3>
+                                        <h3 class="shop-carousel-item-name">{{$product->name}}</h3>
                                         <p>{{$product->description}}</p>
                                     </div>
                                 </div>

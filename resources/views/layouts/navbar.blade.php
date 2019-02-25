@@ -29,41 +29,42 @@
                     </li>
                 @endforeach
             </ul>
-            {{--<ul class="navbar-nav mr-auto">--}}
-                {{--<li class="nav-item dropdown">--}}
-                    {{--<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink"--}}
-                       {{--data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">--}}
-                        {{--Categories--}}
-                    {{--</a>--}}
-                    {{--<ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">--}}
-                        {{--@foreach($categories->where('category_id',null) as $category)--}}
-                            {{--<li class="dropdown-submenu">--}}
-                                {{--<a class="dropdown-item dropdown-toggle" href="/shop?category={{$category->name}}">{{$category->name}}</a>--}}
-                                {{--<ul class="dropdown-menu">--}}
-                                    {{--@foreach($category->categories as $categorya)--}}
-                                        {{--<li><a class="dropdown-item" href="/shop?category={{$categorya->name}}">{{$categorya->name}}</a></li>--}}
-                                    {{--@endforeach--}}
-                                {{--</ul>--}}
-                            {{--</li>--}}
-                        {{--@endforeach--}}
-                    {{--</ul>--}}
-                {{--</li>--}}
-                {{--BRANDS--}}
-                {{--<li class="nav-item dropdown">--}}
-                    {{--<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink"--}}
-                       {{--data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">--}}
-                        {{--Brands--}}
-                    {{--</a>--}}
-                    {{--<ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">--}}
-                        {{--@foreach($brands as $brand)--}}
-                            {{--<li class="dropdown-submenu"><a class="dropdown-item" href="/shop?brand={{$brand->name}}">{{$brand->name}}</a></li>--}}
-                        {{--@endforeach--}}
-                    {{--</ul>--}}
-                {{--</li>--}}
-            {{--</ul>--}}
-            <!-- Right Side Of Navbar -->
+        {{--<ul class="navbar-nav mr-auto">--}}
+        {{--<li class="nav-item dropdown">--}}
+        {{--<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink"--}}
+        {{--data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">--}}
+        {{--Categories--}}
+        {{--</a>--}}
+        {{--<ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">--}}
+        {{--@foreach($categories->where('category_id',null) as $category)--}}
+        {{--<li class="dropdown-submenu">--}}
+        {{--<a class="dropdown-item dropdown-toggle" href="/shop?category={{$category->name}}">{{$category->name}}</a>--}}
+        {{--<ul class="dropdown-menu">--}}
+        {{--@foreach($category->categories as $categorya)--}}
+        {{--<li><a class="dropdown-item" href="/shop?category={{$categorya->name}}">{{$categorya->name}}</a></li>--}}
+        {{--@endforeach--}}
+        {{--</ul>--}}
+        {{--</li>--}}
+        {{--@endforeach--}}
+        {{--</ul>--}}
+        {{--</li>--}}
+        {{--BRANDS--}}
+        {{--<li class="nav-item dropdown">--}}
+        {{--<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink"--}}
+        {{--data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">--}}
+        {{--Brands--}}
+        {{--</a>--}}
+        {{--<ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">--}}
+        {{--@foreach($brands as $brand)--}}
+        {{--<li class="dropdown-submenu"><a class="dropdown-item" href="/shop?brand={{$brand->name}}">{{$brand->name}}</a></li>--}}
+        {{--@endforeach--}}
+        {{--</ul>--}}
+        {{--</li>--}}
+        {{--</ul>--}}
+        <!-- Right Side Of Navbar -->
             <form class="form-inline my-2 my-lg-0" action="/shop">
-                <input class="form-control mr-sm-2" type="search" placeholder="Search product" value="{{ app('request')->input('search') }}"
+                <input class="form-control mr-sm-2" type="search" placeholder="Search product"
+                       value="{{ app('request')->input('search') }}"
                        name="search" aria-label="Search">
                 <button class="btn btn-outline-primary">Search</button>
             </form>
@@ -79,7 +80,18 @@
                     </li>
                 @else
                     <li class="nav-item">
-                        <a href="/cart" class="nav-link"><i class="fa fa-shopping-cart fa-2x"><span class="badge badge-pill badge-success">{{auth()->user()->carts->count()?:''}}</span></i></a>
+                        <a class="nav-link" href="/notifications">
+                            <i class="fa fa-bell fa-2x">
+                                <span class="badge badge-pill badge-success">{{auth()->user()->unReadNotifications->count()?:''}}</span>
+                            </i>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/cart" class="nav-link">
+                            <i class="fa fa-shopping-cart fa-2x">
+                                <span class="badge badge-pill badge-success">{{auth()->user()->carts->count()?:''}}</span>
+                            </i>
+                        </a>
                     </li>
                     <li class="nav-item dropdown">
                         <a href=""></a>

@@ -4,7 +4,7 @@
             <img width="64" height="64" src="/images/orderplaced.png" alt="">
         </div>
         <div class="card-block p-2">
-            <h4>An Order was placed</h4>
+            <h4>Your Order has been accepted</h4>
             <p>{{toCurrency(notif.data.total_price)}}</p>
         </div>
         <div class="w-100"></div>

@@ -5,8 +5,9 @@
  */
 window.Highcharts = require('./highchart');
 window.Moment = require('moment');
-window.topeso = (num) => '₱' + (num).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+window.topeso = (num) => '₱' + Number(num).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
 require('./bootstrap');
+require('./bootstrap-datepicker');
 window.Vue = require('vue');
 window.Swal = require('sweetalert2');
 

@@ -7,9 +7,8 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table datatable table-borderless">
+                            <table class="table order_datatable table-borderless">
                                 <thead>
-                                <th>ID</th>
                                 <th>Customer</th>
                                 <th>Amount</th>
                                 <th>Status</th>
@@ -20,7 +19,6 @@
                                 <tbody>
                                 @foreach($orders as $order)
                                     <tr>
-                                        <td>{{$order->id}}</td>
                                         <td>{{$order->user->email}}</td>
                                         <td>{{string_to_currency($order->total_price)}}</td>
                                         <td>
@@ -51,4 +49,9 @@
     </div>
 @endsection
 @section('scripts')
+    <script>
+        $('.order_datatable').DataTable({
+            "order": [[ 2, "desc" ]],
+        });
+    </script>
 @endsection

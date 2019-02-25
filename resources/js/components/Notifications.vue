@@ -42,8 +42,8 @@
                             <h1 class="display-4 d-block text-center"><i class="fa fa-frown-o fa-2x"></i></h1>
                             <h1 class="display-4 d-block text-center font-weight-bold">Nothing found!</h1>
                             <h4 class="d-block text-center font-weight-bold">
-                                <p class="lead font-weight-bold">Sorry, but nothing matched your search terms.</p>
-                                <p class="lead font-weight-bold">Please try again.</p>
+                                <p class="lead font-weight-bold">No notifications for now</p>
+                                <p class="lead font-weight-bold">If something happens will let you know.</p>
                             </h4>
                         </div>
                     </div>
@@ -56,9 +56,10 @@
 <script>
     import InfiniteLoading from 'vue-infinite-loading';
     import OrderPlaced from './notifications/OrderPlaced';
+    import OrderAccepted from './notifications/OrderAccepted';
 
     export default {
-        components: {InfiniteLoading, OrderPlaced},
+        components: {InfiniteLoading, OrderPlaced, OrderAccepted},
         data() {
             return {
                 infiniteId: 1,
